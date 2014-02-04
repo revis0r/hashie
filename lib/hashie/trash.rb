@@ -19,7 +19,8 @@ module Hashie
     # without using the :from option. It transform the property itself.
     def self.property(property_name, options = {})
       super
-
+      
+      initial_keys << options[:from] ? options[:from] : property_name
       if options[:from]
         if property_name.to_sym == options[:from].to_sym
           raise ArgumentError, "Property name (#{property_name}) and :from option must not be the same"
@@ -63,6 +64,10 @@ module Hashie
 
     def self.transforms
       @transforms ||= {}
+    end
+    
+    def self.initial_keys
+      @initial_keys ||= []  
     end
 
     # Raises an NoMethodError if the property doesn't exist
