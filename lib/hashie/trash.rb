@@ -20,7 +20,7 @@ module Hashie
     def self.property(property_name, options = {})
       super
       
-      initial_keys << options[:from] ? options[:from] : property_name
+      initial_keys << (options[:from] ? options[:from] : property_name)
       if options[:from]
         if property_name.to_sym == options[:from].to_sym
           raise ArgumentError, "Property name (#{property_name}) and :from option must not be the same"
